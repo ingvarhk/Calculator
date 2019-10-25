@@ -1,4 +1,6 @@
 import math
+import sys
+import os
 
 print("Welcome to HIKcalc!!")
 print("-----------------------------------------------")
@@ -61,8 +63,9 @@ EXAMPLES
 # Output: '16'
 
 OTHER COMMANDS
-# exit -- Exit HIKcalc
-# help -- List of commands and examples
+# exit -- Exit HIKcalc.
+# help -- List of commands and examples.
+# clear -- Clear the screen.
 
 SEE MORE
 # http://ingvar.hahnkristensen.dk/hikcalc
@@ -72,11 +75,23 @@ SEE MORE
 
 #for x in range(0, 1):
 while True:
+    
+    decimals = 2
     userInput = input("> ")
     
+    if " deci " in userInput:
+        decimalsPosition = userInput.find('deci ') + 5
+        decimals = int(userInput[decimalsPosition : ])
+        
+        deleteDecimals = userInput.find(' deci ')
+        
+        userInput = userInput.replace(userInput[deleteDecimals : ], '')
+        
     if userInput == "help":
         userHelp()
         
+
+#        PLUS
     elif userInput.startswith('plus '):
         userInput = userInput.replace('plus ', '', 1)
         
@@ -87,17 +102,18 @@ while True:
                 print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
             else:
                 i = 0
-                
-                for number in numbers:      
-                    if i == 0:
-                        num1 = float(number)
-                        i =+ 1
-                    else:
-                        num2 = float(number)
-                print("RESULT: " + str(round(addition(num1, num2))))
-        except Exception as e:
-            print(e)
-        
+            
+            for number in numbers:      
+                if i == 0:
+                    num1 = float(number)
+                    i =+ 1
+                else:
+                    num2 = float(number)
+            print("RESULT: " + str(round(addition(num1, num2), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            
+#        MINUS
     elif userInput.startswith('min '):
         userInput = userInput.replace('min ', '', 1)
         
@@ -115,9 +131,112 @@ while True:
                         i =+ 1
                     else:
                         num2 = float(number)
-                print("RESULT: " + str(round(subtraction(num1, num2))))
-        except Exception as e:
-            print(e)
+                print("RESULT: " + str(round(subtraction(num1, num2), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            
+#        MULTIPLY
+    elif userInput.startswith('mult '):
+        userInput = userInput.replace('mult ', '', 1)
+        
+        try:
+            numbers = userInput.split(' ')
+                
+            if len(numbers) != 2:
+
+                print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            else:
+                i = 0
+                
+                for number in numbers:      
+                    if i == 0:
+                        num1 = float(number)
+                        i =+ 1
+                    else:
+                        num2 = float(number)
+                print("RESULT: " + str(round(multiplication(num1, num2), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            
+#        DIVIDE
+    elif userInput.startswith('divd '):
+        userInput = userInput.replace('divd ', '', 1)
+        
+        try:
+            numbers = userInput.split(' ')
+                
+            if len(numbers) != 2:
+                print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            else:
+                i = 0
+                
+                for number in numbers:      
+                    if i == 0:
+                        num1 = float(number)
+                        i =+ 1
+                    else:
+                        num2 = float(number)
+                print("RESULT: " + str(round(divison(num1, num2), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            
+#        SQAREROOT
+    elif userInput.startswith('sqrt '):
+        userInput = userInput.replace('sqrt ', '', 1)
+        
+        try:
+            numbers = userInput.split(' ')
+                
+            if len(numbers) != 1:
+                print("ERROR: Make sure you are not using any letters. This command can only take 1 argument")
+            else:
+                i = 0
+                
+                for number in numbers:      
+                    if i == 0:
+                        num1 = float(number)
+                        i =+ 1
+                    else:
+                        num2 = float(number)
+                print("RESULT: " + str(round(sqareroot(num1), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 1 argument")
+            
+#        POWER
+    elif userInput.startswith('pow '):
+        userInput = userInput.replace('pow ', '', 1)
+        
+        try:
+            numbers = userInput.split(' ')
+                
+            if len(numbers) != 2:
+                print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            else:
+                i = 0
+                
+                for number in numbers:      
+                    if i == 0:
+                        num1 = float(number)
+                        i =+ 1
+                    else:
+                        num2 = float(number)
+                print("RESULT: " + str(round(power(num1, num2), decimals)))
+        except Exception:
+            print("ERROR: Make sure you are not using any letters. This command can only take 2 arguments")
+            
+    elif userInput == "exit":
+        sys.exit()
+    
+    elif userInput == "clear":
+        os.system('cls')
+        
+    elif userInput == "":
+        pass
+    
+    else:
+        print("Not a valid command!!")
+        
+
         
 
 
