@@ -79,6 +79,9 @@ while True:
     decimals = 2
     userInput = input("> ")
     
+    if "pi" in userInput:
+        userInput = userInput.replace('pi', str(math.pi))
+    
     if " deci " in userInput:
         decimalsPosition = userInput.find('deci ') + 5
         decimals = int(userInput[decimalsPosition : ])
@@ -229,6 +232,7 @@ while True:
     
     elif userInput == "clear":
         os.system('cls')
+    
         
     elif userInput == "":
         pass
